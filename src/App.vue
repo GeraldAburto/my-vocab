@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <md-button>Default</md-button>
+    <md-button>{{$t('misc.greetings')}}</md-button>
   </div>
 </template>
 
@@ -13,6 +13,7 @@ export default {
 
 <style>
 #app {
-
+  display: grid;
+  place-items: center;
 }
 </style>
