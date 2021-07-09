@@ -9,7 +9,7 @@
           <div class="md-layout-item ms-samll-size-100">
             <md-field :class="getValidationClass('langA')">
               <label for="lang-one">{{ $t("addLanguages.langA") }}</label>
-              <md-input name="lang-one" id="lang-one" v-model="form.langA" />
+              <md-input name="lang-one" id="lang-one" v-model="form.langA" :disabled="sending" />
               <span class="md-error" v-if="!$v.form.langA.required">{{
                 $t("addLanguages.langARequired")
               }}</span>
@@ -24,7 +24,7 @@
           <div class="md-layout-item ms-samll-size-100">
             <md-field :class="getValidationClass('langB')">
               <label for="lang-two">{{ $t("addLanguages.langB") }}</label>
-              <md-input name="lang-two" id="lang-two" v-model="form.langB" />
+              <md-input name="lang-two" id="lang-two" v-model="form.langB" :disabled="sending" />
               <span class="md-error" v-if="!$v.form.langB.required">{{
                 $t("addLanguages.langBRequired")
               }}</span>
