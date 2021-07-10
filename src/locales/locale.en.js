@@ -1,6 +1,7 @@
 const en = {
     misc: {
         greetings: 'Hello world!',
+        language: 'Language',
     },
     addLanguages: {
         title: 'Add a pair of languages',

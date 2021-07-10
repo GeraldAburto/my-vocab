@@ -1,18 +1,26 @@
 <template>
   <div id="app">
     <div class="md-layout md-alignment-top-center">
-      <add-languages :onSubmit="addLanguages" class="md-layout-item" />
+      <div class="md-layout-item md-size-100 md-layout md-alignment-top-right">
+        <switch-langue class="md-size-20 md-layout-item" />
+        <div class="md-size-10 md-layout-item"></div>
+      </div>
+      <div class="md-layout-item md-size-100 md-layout md-alignment-top-center">
+        <add-languages :onSubmit="addLanguages" class="md-layout-item md-size-60" />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 import AddLanguages from "./components/AddLanguages.vue";
+import SwitchLangue from "./components/SwitchLanguage.vue";
 
 export default {
   name: "App",
   components: {
     AddLanguages,
+    SwitchLangue,
   },
   methods: {
     addLanguages(languages) {
