@@ -1,26 +1,29 @@
 <template>
   <div id="app">
-    <div class="md-layout md-alignment-top-center">
-      <div class="md-layout-item md-size-100 md-layout md-alignment-top-right">
-        <switch-langue class="md-size-20 md-layout-item" />
-        <div class="md-size-10 md-layout-item"></div>
-      </div>
-      <div class="md-layout-item md-size-100 md-layout md-alignment-top-center">
-        <add-languages :onSubmit="addLanguages" class="md-layout-item md-size-60" />
-      </div>
-    </div>
+    <v-app>
+      <v-container>
+        <v-row>
+          <v-col cols="6" offset="6" md="4" offset-md="8" lg="2" offset-lg="8">
+            <switch-language />
+          </v-col>
+          <v-col cols="12" md="6" offset-md="3">
+            <add-languages :onSubmit="addLanguages" />
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-app>
   </div>
 </template>
 
 <script>
 import AddLanguages from "./components/AddLanguages.vue";
-import SwitchLangue from "./components/SwitchLanguage.vue";
+import SwitchLanguage from "./components/SwitchLanguage.vue";
 
 export default {
   name: "App",
   components: {
     AddLanguages,
-    SwitchLangue,
+    SwitchLanguage,
   },
   methods: {
     addLanguages(languages) {

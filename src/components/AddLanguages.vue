@@ -1,50 +1,40 @@
 <template>
-  <form class="md-size-60" @submit.prevent="validateForm">
-    <md-card class="md-layout-item md-size-100">
-      <md-card-header>
-        <div class="md-title">{{ $t("addLanguages.title") }}</div>
-      </md-card-header>
-      <md-card-content>
-        <div class="md-layout md-guter">
-          <div class="md-layout-item ms-samll-size-100">
-            <md-field :class="getValidationClass('langA')">
-              <label for="lang-one">{{ $t("addLanguages.langA") }}</label>
-              <md-input name="lang-one" id="lang-one" v-model="form.langA" :disabled="sending" />
-              <span class="md-error" v-if="!$v.form.langA.required">{{
-                $t("addLanguages.langARequired")
-              }}</span>
-              <span class="md-error" v-else-if="!$v.form.langA.minlength">{{
-                $t("addLanguages.invalidLength")
-              }}</span>
-            </md-field>
-          </div>
-        </div>
-
-        <div class="md-layout md-guter">
-          <div class="md-layout-item ms-samll-size-100">
-            <md-field :class="getValidationClass('langB')">
-              <label for="lang-two">{{ $t("addLanguages.langB") }}</label>
-              <md-input name="lang-two" id="lang-two" v-model="form.langB" :disabled="sending" />
-              <span class="md-error" v-if="!$v.form.langB.required">{{
-                $t("addLanguages.langBRequired")
-              }}</span>
-              <span class="md-error" v-else-if="!$v.form.langB.minlength">{{
-                $t("addLanguages.invalidLength")
-              }}</span>
-            </md-field>
-          </div>
-        </div>
-      </md-card-content>
-
-      <md-progress-bar md-mode="indeterminate" v-if="sending" />
-
-      <md-card-actions>
-        <md-button type="submit" class="md-primary" :disabled="sending">{{
-          $t("addLanguages.addLangs")
-        }}</md-button>
-      </md-card-actions>
-    </md-card>
-  </form>
+  <v-card>
+    <v-progress-linear indeterminate v-if="sending" />
+    <v-form>
+      <v-container>
+        <v-row>
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="form.langA"
+              :error-messages="langAErrors"
+              :label="$t('addLanguages.langA')"
+              required
+              @input="$v.form.langA.$touch()"
+              @blur="$v.form.langA.$touch()"
+            ></v-text-field>
+          </v-col>
+          <v-col cols="12" md="6">
+            <v-text-field
+              v-model="form.langB"
+              :error-messages="langBErrors"
+              :label="$t('addLanguages.langB')"
+              required
+              @input="$v.form.langB.$touch()"
+              @blur="$v.form.langB.$touch()"
+            ></v-text-field>
+          </v-col>
+        </v-row>
+        <v-row>
+          <v-col>
+            <v-btn class="mr-4" @click="addLanguages" :disabled="$v.$invalid">
+              {{ $t("addLanguages.addLangs") }}
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-container>
+    </v-form>
+  </v-card>
 </template>
 
 <script>
@@ -65,35 +55,45 @@ export default {
     },
     sending: false,
   }),
+  mixins: [validationMixin],
   methods: {
     addLanguages() {
       this.sending = true;
+      this.$v.$touch();
 
-      setTimeout(() => {
-        this.onSubmit({ ...this.form });
-        this.sending = false;
-        this.clearForm();
-      }, 1500);
+      if (!this.$v.$invalid)
+        setTimeout(() => {
+          this.onSubmit({ ...this.form });
+          this.clearForm();
+          this.sending = false;
+        }, 1500);
     },
     clearForm() {
       this.$v.$reset();
       this.form.langA = null;
       this.form.langB = null;
     },
-    getValidationClass(fielName) {
-      const field = this.$v.form[fielName];
-      if (field)
-        return {
-          "md-invalid": field.$invalid && field.$dirty,
-        };
+  },
+  computed: {
+    langAErrors() {
+      const errors = [];
+      if (!this.$v.form.langA.$dirty) return errors;
+      !this.$v.form.langA.minLength &&
+        errors.push(this.$i18n.t("addLanguages.invalidLength"));
+      !this.$v.form.langA.required &&
+        errors.push(this.$i18n.t("addLanguages.langARequired"));
+      return errors;
     },
-    validateForm() {
-      this.$v.$touch();
-
-      if (!this.$v.$invalid) this.addLanguages();
+    langBErrors() {
+      const errors = [];
+      if (!this.$v.form.langB.$dirty) return errors;
+      !this.$v.form.langB.minLength &&
+        errors.push(this.$i18n.t("addLanguages.invalidLength"));
+      !this.$v.form.langB.required &&
+        errors.push(this.$i18n.t("addLanguages.langBRequired"));
+      return errors;
     },
   },
-  mixins: [validationMixin],
   validations: {
     form: {
       langA: {
@@ -110,10 +110,4 @@ export default {
 </script>
 
 <style scoped>
-.md-progress-bar {
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-}
 </style>

@@ -4,17 +4,8 @@ import VueI18n from 'vue-i18n'
 import Vuelidate from 'vuelidate'
 import en from './locales/locale.en'
 import es from './locales/locale.es'
-import { MdButton, MdCard, MdField, MdProgress, MdMenu, MdList } from 'vue-material/dist/components'
-import 'vue-material/dist/vue-material.min.css'
-import 'vue-material/dist/theme/default.css'
-
-//Use Vue Material Components.
-Vue.use(MdButton)
-Vue.use(MdCard)
-Vue.use(MdField)
-Vue.use(MdProgress)
-Vue.use(MdMenu)
-Vue.use(MdList)
+import vuetify from './plugins/vuetify'
+import '@babel/polyfill'
 
 //Use Multi-Language support.
 Vue.use(VueI18n)
@@ -33,5 +24,6 @@ Vue.config.productionTip = false
 
 new Vue({
   render: h => h(App),
-  i18n,
+  vuetify,
+  i18n
 }).$mount('#app')
