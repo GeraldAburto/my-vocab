@@ -1,39 +1,39 @@
 <template>
-  <v-card>
-    <v-progress-linear indeterminate v-if="sending" />
-    <v-form>
-      <v-container>
-        <v-row>
-          <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.langA"
-              :error-messages="langAErrors"
-              :label="$t('addLanguages.langA')"
-              required
-              @input="$v.form.langA.$touch()"
-              @blur="$v.form.langA.$touch()"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="12" md="6">
-            <v-text-field
-              v-model="form.langB"
-              :error-messages="langBErrors"
-              :label="$t('addLanguages.langB')"
-              required
-              @input="$v.form.langB.$touch()"
-              @blur="$v.form.langB.$touch()"
-            ></v-text-field>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-btn class="mr-4" @click="addLanguages" :disabled="$v.$invalid">
-              {{ $t("addLanguages.addLangs") }}
-            </v-btn>
-          </v-col>
-        </v-row>
-      </v-container>
-    </v-form>
+  <v-card :loading="sending">
+    <v-card-title>{{ $t("addLanguages.title") }}</v-card-title>
+    <v-card-text>
+      <v-form id="add-languages">
+        <v-container>
+          <v-row>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.langA"
+                :error-messages="langAErrors"
+                :label="$t('addLanguages.langA')"
+                required
+                @input="$v.form.langA.$touch()"
+                @blur="$v.form.langA.$touch()"
+              ></v-text-field>
+            </v-col>
+            <v-col cols="12" md="6">
+              <v-text-field
+                v-model="form.langB"
+                :error-messages="langBErrors"
+                :label="$t('addLanguages.langB')"
+                required
+                @input="$v.form.langB.$touch()"
+                @blur="$v.form.langB.$touch()"
+              ></v-text-field>
+            </v-col>
+          </v-row>
+        </v-container>
+      </v-form>
+    </v-card-text>
+    <v-card-actions>
+      <v-btn class="mr-4" @click="addLanguages" :disabled="$v.$invalid">
+        {{ $t("addLanguages.addLangs") }}
+      </v-btn>
+    </v-card-actions>
   </v-card>
 </template>
 

@@ -1,7 +1,9 @@
 const es = {
     misc: {
-        greetings: 'Hola mundo!',
         language: 'Idioma',
+        alert: 'Este par de idiomas ya existe.',
+        wordsCount: 'palabra(s).',
+        remove: 'Eliminar',
     },
     addLanguages: {
         title: 'Agrega un par de idiomas',

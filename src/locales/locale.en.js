@@ -1,7 +1,9 @@
 const en = {
     misc: {
-        greetings: 'Hello world!',
         language: 'Language',
+        alert: 'This pair of languages already exists.',
+        wordsCount: 'word(s).',
+        remove: 'Remove',
     },
     addLanguages: {
         title: 'Add a pair of languages',
