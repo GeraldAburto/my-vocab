@@ -3,7 +3,9 @@
     <v-card-title>{{ title }}</v-card-title>
     <v-card-text>{{ `${wordsCount} ${$t("misc.wordsCount")}` }}</v-card-text>
     <v-card-actions>
-      <v-btn color="orange lighten-2" text> Practice </v-btn>
+      <v-btn color="orange lighten-2" text :disabled="wordsCount === 0">
+        {{ $t("misc.practice") }}
+      </v-btn>
       <v-spacer></v-spacer>
       <v-btn icon @click="expanded = !expanded">
         <v-icon>{{ expanded ? "mdi-chevron-up" : "mdi-chevron-down" }}</v-icon>
@@ -13,17 +15,24 @@
       <div v-show="expanded">
         <v-divider></v-divider>
         <v-card-text>
-          <v-simple-table fixed-header height="300px">
-            <template v-slot:default>
-              <thead>
-                <tr>
-                  <th class="text-left">{{ languages[0] }}</th>
-                  <th class="text-left">{{ languages[1] }}</th>
-                  <th class="text-left">{{ $t("misc.remove") }}</th>
-                </tr>
-              </thead>
-            </template>
-          </v-simple-table>
+          <v-row>
+            <v-col cols="12">
+              <add-words
+                :langA="languages[0]"
+                :langB="languages[1]"
+                :onAdded="(words) => onAddWords(title, words)"
+              />
+            </v-col>
+            <v-col cols="12">
+              <words-table
+                :rows="words"
+                :langA="languages[0]"
+                :langB="languages[1]"
+                :onAddWords="onAddWords"
+                :onDeleteWords="(words) => onDeleteWords(title, words)"
+              />
+            </v-col>
+          </v-row>
         </v-card-text>
       </div>
     </v-expand-transition>
@@ -31,6 +40,9 @@
 </template>
 
 <script>
+import WordsTable from "./WordsTable.vue";
+import AddWords from "./AddWords.vue";
+
 export default {
   props: {
     title: {
@@ -38,6 +50,14 @@ export default {
       required: true,
     },
     words: Array,
+    onAddWords: {
+      type: Function,
+      required: true,
+    },
+    onDeleteWords: {
+      type: Function,
+      required: true,
+    },
   },
   data() {
     return {
@@ -52,8 +72,9 @@ export default {
       return Array.from(this.words).length;
     },
   },
+  components: {
+    WordsTable,
+    AddWords,
+  },
 };
 </script>
-
-<style>
-</style>

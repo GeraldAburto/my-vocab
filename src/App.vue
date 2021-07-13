@@ -29,7 +29,12 @@
             v-for="({ languages, words }, index) in languages"
             :key="index"
           >
-            <language-card :title="languages" :words="words" />
+            <language-card
+              :title="languages"
+              :words="words"
+              :onAddWords="addWords"
+              :onDeleteWords="deleteWords"
+            />
           </v-col>
         </v-row>
       </v-container>
@@ -71,6 +76,22 @@ export default {
     },
     saveLanguages() {
       localStorage.setItem("languages", JSON.stringify(this.languages));
+    },
+    addWords(langs, words) {
+      this.languages
+        .find(({ languages }) => languages === langs)
+        .words.push(words);
+      this.saveLanguages();
+    },
+    deleteWords(langs, words) {
+      const language = this.languages.find(
+        ({ languages }) => languages === langs
+      );
+      const index = language.words.indexOf(
+        language.words.find(({ id }) => id === words)
+      );
+      language.words.splice(index, 1);
+      this.saveLanguages();
     },
   },
   mounted() {
