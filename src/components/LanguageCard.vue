@@ -3,7 +3,17 @@
     <v-card-title>{{ title }}</v-card-title>
     <v-card-text>{{ `${wordsCount} ${$t("misc.wordsCount")}` }}</v-card-text>
     <v-card-actions>
-      <v-btn color="orange lighten-2" text :disabled="wordsCount === 0">
+      <v-btn
+        color="orange lighten-2"
+        text
+        :disabled="wordsCount === 0"
+        :to="{
+          name: 'practice',
+          params: {
+            languages: title,
+          },
+        }"
+      >
         {{ $t("misc.practice") }}
       </v-btn>
       <v-spacer></v-spacer>

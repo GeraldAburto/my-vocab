@@ -21,6 +21,9 @@ const es = {
         wordARequired: 'Palabra A es requerida.',
         wordBRequired: 'Palabra B es requerida.',
     },
+    practice: {
+        letsPractice: 'Vamos a practicar',
+    }
 }
 
 export default es

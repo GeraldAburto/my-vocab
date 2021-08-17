@@ -6,6 +6,7 @@ import en from './locales/locale.en'
 import es from './locales/locale.es'
 import vuetify from './plugins/vuetify'
 import '@babel/polyfill'
+import router from './plugins/router'
 
 //Use Multi-Language support.
 Vue.use(VueI18n)
@@ -25,5 +26,6 @@ Vue.config.productionTip = false
 new Vue({
   render: h => h(App),
   vuetify,
-  i18n
+  i18n,
+  router,
 }).$mount('#app')
