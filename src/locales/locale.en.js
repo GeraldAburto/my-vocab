@@ -23,6 +23,11 @@ const en = {
     },
     practice: {
         letsPractice: 'Let\'s practice',
+        translateThis: 'Translate this "{word}" word into {lang}',
+        label: 'Enter your guess',
+        guessRequired: 'Guess is required.',
+        showResults: 'Show Results',
+        next: 'Next',
     }
 }
 

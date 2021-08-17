@@ -23,6 +23,11 @@ const es = {
     },
     practice: {
         letsPractice: 'Vamos a practicar',
+        translateThis: 'Traduce esta palabra "{word}" al {lang}',
+        label: 'Introdice tu respuesta',
+        guessRequired: 'Respuesta es requerida.',
+        showResults: 'Ver Resultados',
+        next: 'Siguiente',
     }
 }
 
